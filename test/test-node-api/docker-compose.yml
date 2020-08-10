@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+    api:
+        image: test-node-api
+        build:
+            context: .
+            dockerfile: ./dockerfile
+        environment:
+            NODE_ENV: production
+            PORT: 8000
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.api.rule=PathPrefix(`/api`)'
+            - 'traefik.http.routers.api.entrypoints=web'
+            - 'traefik.http.routers.api.middlewares=my-api-stripprefix'
+            - 'traefik.http.middlewares.my-api-stripprefix.stripprefix.prefixes=/api'
+        networks:
+            - web
+networks:
+    web:
+        external: true

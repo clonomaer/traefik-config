@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+    whoami:
+        image: 'containous/whoami'
+        container_name: 'simple-service'
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.whoami.rule=PathPrefix(`/whoami`)'
+            - 'traefik.http.routers.whoami.entrypoints=web'
+        networks:
+            - web
+networks:
+    web:
