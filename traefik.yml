@@ -10,3 +10,11 @@ entryPoints:
         address: ':80'
     websecure:
         address: ':443'
+certificatesResolvers:
+    rahayaft-resolver:
+        acme:
+            email: 'ir.milkh@gmail.com'
+            storage: 'acme.json'
+            # tlsChallenge: {}
+            httpChallenge:
+                entryPoint: web
