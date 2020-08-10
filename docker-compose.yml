@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+    traefik:
+        image: traefik
+        container_name: 'traefik'
+        command:
+            #- "--log.level=DEBUG"
+            - '--api.dashboard'
+            - '--providers.docker=true'
+            - '--providers.docker.exposedbydefault=false'
+            - '--entrypoints.web.address=:80'
+        volumes:
+            - './traefik.yml:/etc/traefik/traefik.yml:ro'
+            - '/var/run/docker.sock:/var/run/docker.sock:ro'
+        labels:
+            - 'traefik.enable=true'
+
+            - 'traefik.http.routers.dashboard.rule=Host(`monitor.rahayaft-team.ir`)'
+            - 'traefik.http.routers.dashboard.entrypoints=web'
+            - 'traefik.http.routers.dashboard.service=api@internal'
+            - 'traefik.http.routers.dashboard.middlewares=auth'
+
+            - 'traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$eRUBYsfz$$vZRv4gapw0mL4bOeiFrdS/'
+        ports:
+            - '8080:8080'
+            - '80:80'
+            - '443:443'
+        networks:
+            - web
+networks:
+    web:
+        external: true

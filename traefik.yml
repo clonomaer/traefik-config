@@ -1,0 +1,12 @@
+api:
+    dashboard: true
+providers:
+    docker:
+        endpoint: 'unix:///var/run/docker.sock'
+        network: web
+        # defaultRule: 'Host(`{{ .Name }}.{{ index .Labels "customLabel"}}`)'
+entryPoints:
+    web:
+        address: ':80'
+    websecure:
+        address: ':443'
