@@ -14,7 +14,13 @@ certificatesResolvers:
     rahayaft-team-ir-resolver:
         acme:
             email: 'ir.milkh@gmail.com'
-            storage: 'acme.json'
+            storage: 'rahayaft-team-ir-acme.json'
             # tlsChallenge: {}
             httpChallenge:
                 entryPoint: web
+http:
+    middlewares:
+        https-redirection:
+            redirectScheme:
+                scheme: 'websecure'
+                permanent: true
