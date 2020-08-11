@@ -16,7 +16,9 @@ services:
             - 'traefik.enable=true'
 
             - 'traefik.http.routers.dashboard.rule=Host(`monitor.rahayaft-team.ir`)'
-            - 'traefik.http.routers.dashboard.entrypoints=web'
+            # - 'traefik.http.routers.dashboard.entrypoints=web'
+            - 'traefik.http.routers.dashboard.tls=true'
+            - 'traefik.http.routers.dashboard.tls.certresolver=rahayaft-team-ir-resolver'
             - 'traefik.http.routers.dashboard.service=api@internal'
             - 'traefik.http.routers.dashboard.middlewares=auth'
 
