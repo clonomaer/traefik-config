@@ -1,6 +1,7 @@
 version: '3.7'
 services:
     traefik:
+        restart: always
         image: traefik
         container_name: 'traefik'
         command:
