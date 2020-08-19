@@ -15,21 +15,18 @@ services:
             - '/var/run/docker.sock:/var/run/docker.sock:ro'
         labels:
             - 'traefik.enable=true'
-
             - 'traefik.http.routers.dashboard.rule=Host(`monitor.rahayaft-team.ir`)'
-            # - 'traefik.http.routers.dashboard.entrypoints=web'
             - 'traefik.http.routers.dashboard.tls=true'
             - 'traefik.http.routers.dashboard.tls.certresolver=rahayaft-team-ir-resolver'
             - 'traefik.http.routers.dashboard.service=api@internal'
             - 'traefik.http.routers.dashboard.middlewares=auth'
-
             - 'traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$eRUBYsfz$$vZRv4gapw0mL4bOeiFrdS/'
         ports:
             - '8080:8080'
             - '80:80'
             - '443:443'
-        networks:
-            - web
-networks:
-    web:
-        external: true
+#         networks:
+#             - traefik_default
+# networks:
+#     web:
+#         external: true
