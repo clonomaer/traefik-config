@@ -5,9 +5,13 @@ services:
         container_name: 'simple-service'
         labels:
             - 'traefik.enable=true'
-            - 'traefik.http.routers.whoami.rule=PathPrefix(`/whoami`)'
-            - 'traefik.http.routers.whoami.entrypoints=web'
+            - 'traefik.http.routers.whoami.rule=Host(`whoami.rahayaft-team.ir`)'
+            - 'traefik.http.routers.whoami.tls=true'
+            - 'traefik.http.routers.whoami.tls.certresolver=rahayaft-team-ir-resolver'
+            # - 'traefik.http.routers.whoami.middlewares=my-whoami-stripprefix'
+            # - 'traefik.http.middlewares.my-whoami-stripprefix.stripprefix.prefixes=/'
         networks:
-            - web
+            - traefik_default
 networks:
-    web:
+    traefik_default:
+        external: true

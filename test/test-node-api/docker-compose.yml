@@ -10,12 +10,14 @@ services:
             PORT: 8000
         labels:
             - 'traefik.enable=true'
-            - 'traefik.http.routers.api.rule=PathPrefix(`/api`)'
-            - 'traefik.http.routers.api.entrypoints=web'
-            - 'traefik.http.routers.api.middlewares=my-api-stripprefix'
-            - 'traefik.http.middlewares.my-api-stripprefix.stripprefix.prefixes=/api'
+            - 'traefik.http.routers.test-node.rule=Host(`test.rahayaft-team.ir`)'
+            - 'traefik.http.routers.test-node.tls=true'
+            - 'traefik.http.routers.test-node.tls.certresolver=rahayaft-team-ir-resolver'
+            - 'traefik.http.routers.test-node.middlewares=my-test-node-stripprefix'
+            - 'traefik.http.middlewares.my-test-node-stripprefix.stripprefix.prefixes=/'
+
         networks:
-            - web
+            - traefik_default
 networks:
-    web:
+    traefik_default:
         external: true
